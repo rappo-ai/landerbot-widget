@@ -44,12 +44,6 @@ function setBotResponse(response) {
     setTimeout(() => {
         hideBotTyping();
         if (response.length < 1) {
-            // if there is no response from Rasa, send  fallback message to the user
-            const fallbackMsg = "I am facing some issues, please try again later!!!";
-
-            const BotResponse = `<img class="botAvatar" src="./static/img/sara_avatar.png"/><p class="botMsg">${fallbackMsg}</p><div class="clearfix"></div>`;
-
-            $(BotResponse).appendTo(".chats").hide().fadeIn(1000);
             scrollToBottomOfResults();
         } else {
             // if we get response from Rasa
@@ -223,10 +217,10 @@ function setBotResponse(response) {
  */
 function send(message) {
     $.ajax({
-        url: rasa_server_url,
+        url: rasa_server_url + "/webhook",
         type: "POST",
         contentType: "application/json",
-        data: JSON.stringify({ message, sender: sender_id }),
+        data: JSON.stringify({ text: message, sender: sender_id }),
         success(botResponse, status) {
             console.log("Response from Rasa: ", botResponse, "\nStatus: ", status);
 
@@ -416,3 +410,8 @@ $("#sendButton").on("click", (e) => {
     e.preventDefault();
     return false;
 });
+
+const evtSource = new EventSource(rasa_server_url + "/events?sender="+sender_id, {withCredentials: false});
+evtSource.onmessage = function(event) {
+    setBotResponse(JSON.parse(event.data));
+}
