@@ -196,9 +196,9 @@ blockquote {
   /* display: none; */
   position: fixed;
   padding: 5px;
-  width: 10%;
-  bottom: 0;
-  right: 0;
+  width: 20%;
+  bottom: 20px;
+  right: -10px;
   cursor: pointer;
 }
 
