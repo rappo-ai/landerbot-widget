@@ -1,4 +1,5 @@
 const rasa_server_url = "https://client-test.landerbot.rappo.ai/webhooks/rest";
+const sender_id = uuidv4();
 
 /**
  * scroll to the bottom of the chats after new message has been added to chat
