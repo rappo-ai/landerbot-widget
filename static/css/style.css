@@ -27,8 +27,8 @@ body {
 .chat_header_title {
   color: white;
   float: left;
-  margin-top: 3%;
-  margin-left: 35%;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .chats {
