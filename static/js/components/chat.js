@@ -233,7 +233,6 @@ function send(message) {
 
                 // if you want the bot to start the conversation after restart
                 // customActionTrigger();
-                return;
             }
             setBotResponse(botResponse);
         },
@@ -419,4 +418,4 @@ evtSource.onmessage = function(event) {
     setBotResponse(JSON.parse(event.data));
 }
 
-send("/restart");
+send("/start");

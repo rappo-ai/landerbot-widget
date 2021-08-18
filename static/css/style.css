@@ -639,7 +639,7 @@ div.content_data::-webkit-scrollbar {
   width: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
-  white-space: nowrap;
+  /*white-space: nowrap;*/
   transition: all 0.2s;
   transform: scale(0.98);
   will-change: transform;
