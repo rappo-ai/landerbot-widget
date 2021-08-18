@@ -418,3 +418,5 @@ const evtSource = new EventSource(rasa_server_url + "/events?sender="+sender_id,
 evtSource.onmessage = function(event) {
     setBotResponse(JSON.parse(event.data));
 }
+
+send("/restart");
