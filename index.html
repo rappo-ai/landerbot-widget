@@ -1,130 +1,121 @@
 <html>
-  <head>
-    <title>Chatbot Widget</title>
 
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <meta content="utf-8" http-equiv="encoding" />
+<head>
+  <title>Chatbot Widget</title>
 
-    <!--Import Google Icon Font-->
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Raleway:500&display=swap"
-      rel="stylesheet"
-    />
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+  <meta content="utf-8" http-equiv="encoding" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
-      rel="stylesheet"
-    />
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Raleway:500&display=swap" rel="stylesheet" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
-      rel="stylesheet"
-    />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
 
-    <!--Import Font Awesome Icon Font-->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
-      crossorigin="anonymous"
-    />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
 
-    <!--Import materialize.css-->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="static/css/materialize.min.css"
-    />
+  <!--Import Font Awesome Icon Font-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
-    <!--Main css-->
-    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
+  <!--Import materialize.css-->
+  <link rel="stylesheet" type="text/css" href="static/css/materialize.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
 
-  <body>
-    <div class="container">
-      <!-- Modal for rendering the charts, declare this if you want to render charts, 
+  <!--Main css-->
+  <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <div class="widget_container">
+    <!-- Modal for rendering the charts, declare this if you want to render charts, 
          else you remove the modal -->
-      <div id="modal1" class="modal">
-        <canvas id="modal-chart"></canvas>
-      </div>
+    <div id="modal1" class="modal">
+      <canvas id="modal-chart"></canvas>
+    </div>
 
-      <!--chatbot widget -->
-      <div class="widget">
-        <div class="chat_header">
-          <!--Add the name of the bot here -->
-          <span class="chat_header_title">Powered by Rappo AI</span>
+    <!--chatbot widget -->
+    <div class="widget">
+      <div class="chat_header">
+        <!--Add the name of the bot here -->
+        <div class="chat_header_sec">
+          <img class="botAvatar" src="./static/img/bot_avatar.png" />
+          <span class="chat_header_title">Hello</span>
+        </div>
+        <div class="chat_header_sec">
+
           <span class="dropdown-trigger" href="#" data-target="dropdown1">
             <i class="material-icons"> more_vert </i>
           </span>
-
+          <span href="#" class="dropdown-close" id='close'>
+            <!-- <i class="material-icons"> expand_more</i> -->
+            <img class="widget_collapse" src="static/img/collapse.svg" />
+          </span>
           <!-- Dropdown menu-->
           <ul id="dropdown1" class="dropdown-content">
             <li><a href="#" id="clear">Clear</a></li>
             <li><a href="#" id="restart">Restart</a></li>
-            <li><a href="#" id="close">Close</a></li>
           </ul>
         </div>
+      </div>
 
-        <!--Chatbot contents goes here -->
-        <div class="chats" id="chats">
-          <div class="clearfix"></div>
-        </div>
+      <!--Chatbot contents goes here -->
+      <div class="chats" id="chats">
+        <div class="clearfix"></div>
+      </div>
 
-        <!--keypad for user to type the message -->
-        <div class="keypad">
-          <textarea
-            id="userInput"
-            placeholder="Type a message..."
-            class="usrInput"
-          ></textarea>
+      <!--keypad for user to type the message -->
+      <div class="keypad">
+        <div class="keypad_seperator"></div>
+        <div class="input_container">
+          <textarea id="userInput" placeholder="Click the buttons to respond" class="usrInput"></textarea>
           <div id="sendButton">
-            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+            <img class="send_img" src="static/img/send.svg" />
           </div>
         </div>
+        <div class="keypad_seperator"></div>
+        <div class="footer_info">
+          <span class="powered_by">POWERED BY</span>
+          <img class="rappo_logo" src="static/img/logo.svg" />
+        </div>
       </div>
+    </div>
 
-      <!--bot profile-->
-      <div class="profile_div" id="profile_div">
-        <img class="imgProfile" src="static/img/botAvatar.png" />
-      </div>
+    <!--bot profile-->
+    <div class="profile_div" id="profile_div">
+      <img class="imgProfile" src="static/img/chat_bubble.svg" />
+    </div>
 
-      <!-- Bot pop-up intro -->
-      <div class="tap-target" data-target="profile_div">
+    <!-- Bot pop-up intro -->
+    <!-- <div class="tap-target" data-target="profile_div">
         <div class="tap-target-content">
           <h5 class="white-text">Hey there 👋</h5>
           <p class="white-text">
             I can help you get started with Rappo AI and connect you to our staff.
           </p>
         </div>
-      </div>
-    </div>
+      </div> -->
+  </div>
 
-    <!--JavaScript at end of body for optimized loading-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script
-      type="text/javascript"
-      src="static/js/lib/materialize.min.js"
-    ></script>
-    <script src="static/js/lib/uuid.min.js"></script>
-    <!--Main Script -->
-    <script type="text/javascript" src="static/js/script.js"></script>
+  <!--JavaScript at end of body for optimized loading-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="static/js/lib/materialize.min.js"></script>
+  <script src="static/js/lib/uuid.min.js"></script>
+  <!--Main Script -->
+  <script type="text/javascript" src="static/js/script.js"></script>
 
-    <!--Chart.js Script -->
-    <script type="text/javascript" src="static/js/lib/chart.min.js"></script>
-    <script type="text/javascript" src="static/js/lib/showdown.min.js"></script>
-  </body>
+  <!--Chart.js Script -->
+  <script type="text/javascript" src="static/js/lib/chart.min.js"></script>
+  <script type="text/javascript" src="static/js/lib/showdown.min.js"></script>
+</body>
+
 </html>

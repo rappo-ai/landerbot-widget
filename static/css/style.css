@@ -1,43 +1,102 @@
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  width: 0px;
+  height: 0px;
+  position: absolute;
 }
 
 /* ============= css related to chats =============== */
 
+.widget_container {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+}
+
 .widget {
   display: none;
   width: 350px;
-  right: 15px;
-  height: 500px;
-  bottom: 5%;
+  right: 20px;
+  bottom: 20px;
+  height: 560px;
   position: fixed;
   background: #fff;
   border-radius: 10px 10px 10px 10px;
-  box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.16), 0 0px 5px 0 #00000096;
+  /* box-shadow: 0 0px 1px 0 rgba(88,88,88, 0.12), 0 0px 2px 0 rgba(88,88,88, 0.5); */
+  box-shadow: rgb(64 30 0 / 16%) 0px 8px 36px 0px;
 }
 
 .chat_header {
-  height: 60px;
-  background: #060dcfc7;
+  height: 68px;
+  /* background: #fda85f; */
   border-radius: 10px 10px 0px 0px;
-  padding: 5px;
-  font-size: 20px;
+  padding: 10px;
+  font-size: 22px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgb(250,120,0);
+  background: -moz-linear-gradient(90deg, rgba(250,120,0,1) 0%, rgba(255,168,88,1) 35%);
+  background: -webkit-linear-gradient(90deg, rgba(250,120,0,1) 0%, rgba(255,168,88,1) 35%);
+  background: linear-gradient(90deg, rgba(250,120,0,1) 0%, rgba(255,168,88,1) 35%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fa7800",endColorstr="#ffa858",GradientType=1);
+}
+
+.chat_header_sec {
+  display: flex;
+  align-items: center;
+}
+
+.chatAvatar {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  float: left;
 }
 
 .chat_header_title {
   color: white;
+  margin-left: 16px;
   float: left;
-  margin-top: 10px;
-  margin-left: 10px;
+}
+
+.dropdown-trigger {
+  cursor: pointer;
+  color: white;
+  float: right;
+  margin-right: 16px;
+}
+.dropdown-close {
+  cursor: pointer;
+  color: white;
+  float: right;
+}
+
+.widget_collapse {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.dropdown-content {
+  border-radius: 8px;
+  width: 120px;
+}
+
+.dropdown-content li > a,
+.dropdown-content li > span {
+  color: #fa7800;
 }
 
 .chats {
   /* display: none; */
-  height: 385px;
-  padding: 2px;
-  border-radius: 1px;
+  height: 400px;
+  padding: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   overflow-y: scroll;
-  margin-top: 1px;
   transition: 0.2s;
 }
 
@@ -65,22 +124,20 @@ div.chats::-webkit-scrollbar {
 
 .botMsg {
   float: left;
-  margin-top: 5px;
-  background: #e3e7ee;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  background: #ebebeb;
   color: black;
   /* box-shadow: 2px 3px 9px 0px #9a82842e; */
-  margin-left: 0.5em;
-  padding: 10px;
-  border-radius: 1.5em;
-  max-width: 60%;
-  min-width: 25%;
-  font-size: 13px;
+  padding: 8px;
+  max-width: 80%;
+  min-width: 15%;
+  font-size: 15px;
   word-wrap: break-word;
-  border-radius: 5px 20px 20px 20px;
+  border-radius: 8px;
 }
 
 div.chats > pre {
-  font-family: monospace, monospace;
   font-size: 1em;
   margin: 0 !important;
   /* display: inline !important; */
@@ -115,18 +172,19 @@ textarea-webkit-scrollbar {
 .userMsg {
   animation: animateElement linear 0.2s;
   animation-iteration-count: 1;
-  margin-top: 5px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   word-wrap: break-word;
-  padding: 10px;
+  padding: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
   float: right;
-  margin-right: 0.5em;
-  background: #060dcfc7;
+  background: #9814FF;
   color: white;
-  margin-bottom: 0.15em;
-  font-size: 13px;
-  max-width: 65%;
+  font-size: 15px;
+  max-width: 80%;
   min-width: 15%;
-  border-radius: 20px 5px 20px 20px;
+  border-radius: 20px 2px 20px 20px;
   /* box-shadow: 0px 2px 5px 0px #9a828454; */
 }
 
@@ -151,54 +209,79 @@ blockquote {
   /* border: 2px solid  #060DCF ; */
 }
 
+.input_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .usrInput {
-  padding: 0.5em;
-  width: 80%;
-  margin-left: 4%;
   border: 0;
-  padding-left: 15px;
-  height: 40px;
+  padding-top: 16px;
+  padding-left: 8px;
+  height: auto;
+}
+
+#sendButton {
+  height: 30px;
+  width: 30px;
+  margin-right: 8px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+.send_img {
+  width: 100%;
+  height: 100%;
+}
+.keypad_seperator {
+  height: 1px;
+  background-color: #ebebeb;
 }
 
 .keypad {
   /* display: none;  */
   background: white;
-  height: 50px;
   position: absolute;
   bottom: 0px;
   width: 100%;
-  padding: 5px;
   border-radius: 0px 0px 10px 10px;
-  border-top: 1px solid #e3e7ee;
+  padding-left: 16px;
+  padding-right: 16px;
+  /* border-top: 1px solid #e3e7ee; */
 }
-
-#sendButton {
+.footer_info {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.powered_by {
+  font-size: 12px;
+  margin-right: 16;
+  font-weight: 700;
+  color: #A6A6A6;
+}
+.rappo_logo {
   height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  display: inline-block;
-  float: right;
-  margin-right: 30px;
-  text-align: center;
-  padding: 5px;
-  font-size: 20px;
-  cursor: pointer;
-  color: #060dcfc7;
 }
 
 .imgProfile {
-  box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.16), 0 0px 10px 0 #00000096;
+  /* box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.16), 0 0px 10px 0 #00000096; */
+  box-shadow: rgb(64 30 0 / 16%) 0px 8px 36px 0px;
   border-radius: 50px;
-  width: 60%;
+  width: 100%;
 }
 
 .profile_div {
   /* display: none; */
   position: fixed;
-  padding: 5px;
-  width: 20%;
+  padding: 6px;
+  width: 72px;
+  height: 72px;
   bottom: 20px;
-  right: -10px;
+  right: 20px;
   cursor: pointer;
 }
 
@@ -208,19 +291,6 @@ blockquote {
 #restart,
 #clear {
   cursor: pointer;
-}
-
-.dropdown-trigger {
-  cursor: pointer;
-  color: white;
-  margin-right: 5px;
-  float: right;
-  margin-top: 3%;
-}
-
-.dropdown-content li > a,
-.dropdown-content li > span {
-  color: #060dcfc7;
 }
 
 @keyframes animateElement {
@@ -634,14 +704,14 @@ div.content_data::-webkit-scrollbar {
 /* css for quick replies */
 
 .quickReplies {
-  padding: 5px;
+  margin-top: 10px;
   position: relative;
   width: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
   /*white-space: nowrap;*/
   transition: all 0.2s;
-  transform: scale(0.98);
+  /* transform: scale(0.98); */
   will-change: transform;
   user-select: none;
   cursor: pointer;
@@ -650,6 +720,7 @@ div.content_data::-webkit-scrollbar {
 
 .quickReplies::-webkit-scrollbar {
   width: 0 !important;
+  height: 0 !important;
 }
 
 .quickReplies.active {
@@ -660,14 +731,16 @@ div.content_data::-webkit-scrollbar {
 
 .chip {
   background-color: white;
-  border: 1px solid#060dcfc7;
-  color: #060dcfc7;
-  font-weight: bolder;
+  border: 1px solid#fa7800;
+  color: #fa7800;
   text-align: center;
+  font-size: 15;
+  height: 34px;
+  border-radius: 18px;
 }
 
 .chip:hover {
-  background-color: #060dcfc7;
+  background-color: #fa7800;
   color: white;
 }
 
@@ -743,23 +816,23 @@ ul.collapsible > li:last-child .collapsible-body {
 
 .botTyping {
   float: left;
-  margin-top: 5px;
-  background: #e3e7ee;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  background: #ebebeb;
   color: #000000;
   /* box-shadow: 2px 3px 9px 0px #9a82847a; */
-  margin-left: 0.5em;
   padding: 15px;
-  border-radius: 5px 20px 20px 20px;
-  max-width: 60%;
-  min-width: 20%;
+  max-width: 80%;
+  min-width: 15%;
   word-wrap: break-word;
-  border-radius: 5px 20px 20px 20px;
+  /* border-radius: 5px 20px 20px 20px; */
+  border-radius: 10px;
 }
 
 .botTyping > div {
   width: 10px;
   height: 10px;
-  background-color: #060dcfc7;
+  background-color: #fda85f;
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
@@ -826,7 +899,7 @@ video:focus {
 
 .tap-target {
   color: #fff;
-  background: #484ef9;
+  background: 'rgb(255, 168, 88, 0.35)';
 }
 
 .pdf_attachment {
@@ -856,4 +929,24 @@ video:focus {
 
 .pdf_link a {
   color: #060dcfc7;
+}
+
+textarea::-webkit-input-placeholder {
+  color: #d9d9d9;
+}
+
+textarea:-moz-placeholder { /* Firefox 18- */
+  color: #d9d9d9;
+}
+
+textarea::-moz-placeholder {  /* Firefox 19+ */
+  color: #d9d9d9;
+}
+
+textarea:-ms-input-placeholder {
+  color: #d9d9d9;
+}
+
+textarea::placeholder {
+  color: #d9d9d9;
 }
