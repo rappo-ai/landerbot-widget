@@ -2,6 +2,7 @@ const Rappo = {}
 window.addEventListener('DOMContentLoaded', (event) => {
   const chatbotWidget = document.getElementById('chatbotWidget')
   Rappo.widget = chatbotWidget
+  chatbotWidget.className = 'chatbot chatbotClose'
 });
 window.Rappo = Rappo
 
