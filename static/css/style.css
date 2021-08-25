@@ -16,14 +16,14 @@ body {
 .widget {
   display: none;
   width: 350px;
-  right: 20px;
-  bottom: 20px;
+  right: 1px;
+  bottom: 1px;
   height: 560px;
   position: fixed;
   background: #fff;
   border-radius: 10px 10px 10px 10px;
-  /* box-shadow: 0 0px 1px 0 rgba(88,88,88, 0.12), 0 0px 2px 0 rgba(88,88,88, 0.5); */
-  box-shadow: rgb(64 30 0 / 16%) 0px 8px 36px 0px;
+  box-shadow: 0 0px 1px 0 rgba(88,88,88, 0.12), 0 0px 2px 0 rgba(88,88,88, 0.5);
+  /* box-shadow: rgb(64 30 0 / 16%) 0px 8px 36px 0px; */
 }
 
 .chat_header {
@@ -269,7 +269,8 @@ blockquote {
 
 .imgProfile {
   /* box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.16), 0 0px 10px 0 #00000096; */
-  box-shadow: rgb(64 30 0 / 16%) 0px 8px 36px 0px;
+  box-shadow: 0 0px 1px 0 rgba(88,88,88, 0.12), 0 0px 2px 0 rgba(88,88,88, 0.5);
+  /* box-shadow: rgb(64 30 0 / 16%) 0px 8px 36px 0px; */
   border-radius: 50px;
   width: 100%;
 }
@@ -280,8 +281,8 @@ blockquote {
   padding: 6px;
   width: 72px;
   height: 72px;
-  bottom: 20px;
-  right: 20px;
+  bottom: 1px;
+  right: 1px;
   cursor: pointer;
 }
 

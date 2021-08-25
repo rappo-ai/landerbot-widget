@@ -219,6 +219,7 @@ function setBotResponse(response) {
  * @param {String} message user message
  */
 function send(message) {
+    console.log('message', message)
     $.ajax({
         url: rasa_server_url + "/webhook",
         type: "POST",
