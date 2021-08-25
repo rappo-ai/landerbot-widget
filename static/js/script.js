@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     if (e.data) {
       const data = JSON.parse(e.data);
-      console.log('iframe message', data)
+      // console.log('iframe message', data)
       sendChatCommandFromParent(data.payload, data.text )
     }
   });
