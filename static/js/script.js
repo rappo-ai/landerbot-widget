@@ -48,7 +48,7 @@ window.addEventListener('load', () => {
   $("#profile_div").click(() => {
     $(".profile_div").toggle();
     $(".widget").toggle();
-    widgetToggleEvent(true)
+    openWidget()
   });
 
   // clear function to clear the chat contents of the widget.
@@ -64,7 +64,7 @@ window.addEventListener('load', () => {
     $(".profile_div").toggle();
     $(".widget").toggle();
     scrollToBottomOfResults();
-    widgetToggleEvent(false)
+    closeWidget()
   });
 });
 
@@ -78,25 +78,29 @@ window.addEventListener('load', () => {
 document.addEventListener('DOMContentLoaded', function () {
 
   window.addEventListener('message', function (e) {
-    if (!$("#profile_div").is(':hidden')) {
-      $(".profile_div").toggle();
-      $(".widget").toggle();
-      widgetToggleEvent(true)
-    }
-    if (e.data) {
+    if (e.data === '_open') {
+      if (!$("#profile_div").is(':hidden')) {
+        $(".profile_div").toggle();
+        $(".widget").toggle();
+        openWidget()
+      }
+    } else if(e.data === '_close') {
+      if (!$("#profile_div").is(':visible')) {
+        $(".profile_div").toggle();
+        $(".widget").toggle();
+        closeWidget()
+      }
+    } else if (e.data) {
+      if (!$("#profile_div").is(':hidden')) {
+        $(".profile_div").toggle();
+        $(".widget").toggle();
+        openWidget()
+      }
       const data = JSON.parse(e.data);
       // console.log('iframe message', data)
       sendChatCommandFromParent(data.payload, data.text )
     }
   });
-
-  // document.getElementById('sendToWindow').addEventListener('click', function () {
-  //   const message = JSON.stringify({
-  //     message: 'Hello from iframe',
-  //     date: Date.now(),
-  //   });
-  //   window.parent.postMessage(message, '*');
-  // });
 });
 
 function sendChatCommandFromParent(payload, text) {
@@ -107,14 +111,12 @@ function sendChatCommandFromParent(payload, text) {
     setUserResponse(text);
     send(payload);
   }, 0)
-
-  // delete the quickreplies
 }
 
-function widgetToggleEvent(toggle) {
-  if (toggle) {
-    window.parent.postMessage('open', '*')
-  } else {
-    window.parent.postMessage('close', '*')
-  }
+function openWidget() {
+  window.parent.postMessage('_open', '*')
+}
+
+function closeWidget() {
+  window.parent.postMessage('_close', '*')
 }
