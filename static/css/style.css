@@ -18,7 +18,7 @@ body {
   width: 350px;
   right: 1px;
   bottom: 1px;
-  height: 560px;
+  height: calc(100vh - 20px);
   position: fixed;
   background: #fff;
   border-radius: 10px 10px 10px 10px;
@@ -158,11 +158,13 @@ textarea {
   resize: none;
   outline: none;
   overflow: hidden;
-  font-family: Lato;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
 }
 
 textarea::-webkit-input-placeholder {
-  font-family: Lato;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
 }
 
 textarea-webkit-scrollbar {
@@ -426,7 +428,8 @@ blockquote {
 .stars-outer {
   display: inline-block;
   position: relative;
-  font-family: FontAwesome;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
 }
 
 .stars-outer::before {

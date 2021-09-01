@@ -1,5 +1,6 @@
 const rasa_server_url = "https://client-test.landerbot.rappo.ai/webhooks/rest";
-const sender_id = uuidv4();
+const RappoSenderId = localStorage.getItem('RappoSenderId') || uuidv4();
+localStorage.setItem('RappoSenderId', RappoSenderId)
 
 /**
  * scroll to the bottom of the chats after new message has been added to chat
@@ -224,7 +225,7 @@ function send(message) {
         url: rasa_server_url + "/webhook",
         type: "POST",
         contentType: "application/json",
-        data: JSON.stringify({ text: message, sender: sender_id }),
+        data: JSON.stringify({ text: message, sender: RappoSenderId }),
         success(botResponse, status) {
             console.log("Response from Rasa: ", botResponse, "\nStatus: ", status);
 
@@ -260,7 +261,7 @@ function send(message) {
 // eslint-disable-next-line no-unused-vars
 function actionTrigger() {
     $.ajax({
-        url: `http://localhost:5005/conversations/${sender_id}/execute`,
+        url: `http://localhost:5005/conversations/${RappoSenderId}/execute`,
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify({
@@ -303,7 +304,7 @@ function customActionTrigger() {
         data: JSON.stringify({
             next_action: action_name,
             tracker: {
-                sender_id,
+                sender_id: RappoSenderId,
             },
         }),
         success(botResponse, status) {
@@ -414,7 +415,7 @@ $("#sendButton").on("click", (e) => {
     return false;
 });
 
-const evtSource = new EventSource(rasa_server_url + "/events?sender="+sender_id, {withCredentials: false});
+const evtSource = new EventSource(rasa_server_url + "/events?sender="+RappoSenderId, {withCredentials: false});
 evtSource.onmessage = function(event) {
     setBotResponse(JSON.parse(event.data));
 }

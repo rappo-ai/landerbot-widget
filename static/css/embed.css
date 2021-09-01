@@ -1,4 +1,4 @@
-.chatbot {
+._rappo_chatbot {
   display: block;
   border: none;
   position: fixed;
@@ -17,11 +17,11 @@
   right: 20px;
   bottom: 20px;
 }
-.chatbotClose {
+._rappo_chatbot_close {
   width: 72px;
   height: 72px;
 }
-.chatbotOpen {
+._rappo_chatbot_open {
   width: 375px;
   height: 590px;
 }
