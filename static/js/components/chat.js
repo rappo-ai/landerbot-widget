@@ -1,4 +1,4 @@
-const rasa_server_url = "http://localhost:5016/webhooks/rest";
+const rasa_server_url = "https://client-test.landerbot.rappo.ai/webhooks/rest";
 const RappoSenderId = localStorage.getItem('RappoSenderId') || uuidv4();
 localStorage.setItem('RappoSenderId', RappoSenderId)
 
