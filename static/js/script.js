@@ -109,7 +109,7 @@ function sendChatCommandFromParent(payload, text) {
   }
   setTimeout(() => {
     setUserResponse(text);
-    send(payload);
+    send(text, payload);
   }, 0)
 }
 

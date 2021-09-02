@@ -1,4 +1,4 @@
-const rasa_server_url = "https://client-test.landerbot.rappo.ai/webhooks/rest";
+const rasa_server_url = "http://localhost:5016/webhooks/rest";
 const RappoSenderId = localStorage.getItem('RappoSenderId') || uuidv4();
 localStorage.setItem('RappoSenderId', RappoSenderId)
 
@@ -219,13 +219,16 @@ function setBotResponse(response) {
  * sends the user message to the rasa server,
  * @param {String} message user message
  */
-function send(message) {
+function send(inputText, message) {
+    if (!message) {
+        message = inputText
+    }
     console.log('message', message)
     $.ajax({
         url: rasa_server_url + "/webhook",
         type: "POST",
         contentType: "application/json",
-        data: JSON.stringify({ text: message, sender: RappoSenderId }),
+        data: JSON.stringify({ text: message, input_text: inputText, sender: RappoSenderId }),
         success(botResponse, status) {
             console.log("Response from Rasa: ", botResponse, "\nStatus: ", status);
 
@@ -345,7 +348,7 @@ function restartConversation() {
     }
     $(".chats").html("");
     $(".usrInput").val("");
-    send("/restart");
+    send("", "/restart");
 }
 // triggers restartConversation function.
 $("#restart").click(() => {
@@ -420,4 +423,4 @@ evtSource.onmessage = function(event) {
     setBotResponse(JSON.parse(event.data));
 }
 
-send("/start");
+send("", "/start");

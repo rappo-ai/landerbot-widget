@@ -7,7 +7,7 @@ function getUserPosition(position) {
     const response = `/inform{"latitude":${position.coords.latitude},"longitude":${position.coords.longitude}}`;
     $("#userInput").prop("disabled", false);
     // eslint-disable-next-line no-use-before-define
-    send(response);
+    send("", response);
     showBotTyping();
 }
 
@@ -35,7 +35,7 @@ function handleLocationAccessError(error) {
 
     const response = '/inform{"user_location":"deny"}';
     // eslint-disable-next-line no-use-before-define
-    send(response);
+    send("", response);
     showBotTyping();
     $(".usrInput").val("");
     $("#userInput").prop("disabled", false);
