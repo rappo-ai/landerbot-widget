@@ -24,16 +24,23 @@ const Rappo = {};
     Rappo.widget.contentWindow.postMessage('_close', '*')
   }
   window.addEventListener('message', function (e) {
-    const data = e.data;
-    let h = 590;
-    if (data === '_open') {
+    const message = e.data;
+    const messageType = message.type
+    const messageData = message.data
+    const h = 590;
+    if (messageType === '_open') {
       document.getElementById(RappoWidgetId).className = RappoIframeClass + ' ' + RappoIframeOpenClass
       if (window.innerHeight < h) {
         h = window.innerHeight - 30;
       }
-    } else if (data === '_close') {
+    } else if (messageType === '_close') {
       document.getElementById(RappoWidgetId).className = RappoIframeClass + ' ' + RappoIframeCloseClass
       h = 72
+    } else if (messageType === '_event') {
+      const eventName = messageData.name
+      if (eventName === 'livechat_start') {
+        gtag('event', 'conversion', {'send_to': 'AW-964612562/UTN4COvmtPECENKj-8sD'});
+      }
     }
     document.getElementById(RappoWidgetId).style.height = h + 'px'
   });
@@ -41,4 +48,14 @@ const Rappo = {};
   !function (t, e) { "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = t || self).uuidv4 = e() }(this, (function () { "use strict"; var t = "undefined" != typeof crypto && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || "undefined" != typeof msCrypto && "function" == typeof msCrypto.getRandomValues && msCrypto.getRandomValues.bind(msCrypto), e = new Uint8Array(16); function n() { if (!t) throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported"); return t(e) } for (var o = [], r = 0; r < 256; ++r)o.push((r + 256).toString(16).substr(1)); return function (t, e, r) { "string" == typeof t && (e = "binary" === t ? new Uint8Array(16) : null, t = null); var u = (t = t || {}).random || (t.rng || n)(); if (u[6] = 15 & u[6] | 64, u[8] = 63 & u[8] | 128, e) { for (var i = r || 0, d = 0; d < 16; ++d)e[i + d] = u[d]; return e } return function (t, e) { var n = e || 0, r = o; return (r[t[n + 0]] + r[t[n + 1]] + r[t[n + 2]] + r[t[n + 3]] + "-" + r[t[n + 4]] + r[t[n + 5]] + "-" + r[t[n + 6]] + r[t[n + 7]] + "-" + r[t[n + 8]] + r[t[n + 9]] + "-" + r[t[n + 10]] + r[t[n + 11]] + r[t[n + 12]] + r[t[n + 13]] + r[t[n + 14]] + r[t[n + 15]]).toLowerCase() }(u) } }));
   const RappoSenderId = localStorage.getItem('RappoSenderId') || uuidv4();
   localStorage.setItem('RappoSenderId', RappoSenderId)
+
+  var gtagScript = document.createElement("script");
+  gtagScript.type = "text/javascript";
+  gtagScript.setAttribute("async", "true");
+  gtagScript.setAttribute("src", "https://www.googletagmanager.com/gtag/js?id=AW-964612562");
+  document.documentElement.firstChild.appendChild(gtagScript);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-964612562');
 })()

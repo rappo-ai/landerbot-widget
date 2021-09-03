@@ -36,6 +36,44 @@ function getBotResponse(text) {
     return botResponse;
 }
 
+function processTextBotReponse(text) {
+    // convert the text to mardown format using showdown.js(https://github.com/showdownjs/showdown);
+    let botResponse;
+    let html = converter.makeHtml(text);
+    html = html.replaceAll("<p>", "").replaceAll("</p>", "").replaceAll("<strong>", "<b>").replaceAll("</strong>", "</b>");
+    html = html.replace(/(?:\r\n|\r|\n)/g, '<br>')
+    console.log(html);
+    // check for blockquotes
+    if (html.includes("<blockquote>")) {
+        html = html.replaceAll("<br>", "");
+        botResponse = getBotResponse(html);
+    }
+    // check for image
+    if (html.includes("<img")) {
+        html = html.replaceAll("<img", '<img class="imgcard_mrkdwn" ');
+        botResponse = getBotResponse(html);
+    }
+    // check for preformatted text
+    if (html.includes("<pre") || html.includes("<code>")) {
+
+        botResponse = getBotResponse(html);
+    }
+    // check for list text
+    if (html.includes("<ul") || html.includes("<ol") || html.includes("<li") || html.includes('<h3')) {
+        html = html.replaceAll("<br>", "");
+        // botResponse = `<img class="botAvatar" src="./static/img/bot_avatar.png"/><span class="botMsg">${html}</span><div class="clearfix"></div>`;
+        botResponse = getBotResponse(html);
+    }
+    else {
+        // if no markdown formatting found, render the text as it is.
+        if (!botResponse) {
+            botResponse = `<p class="botMsg">${text}</p><div class="clearfix"></div>`;
+        }
+    }
+    // append the bot response on to the chat screen
+    $(botResponse).appendTo(".chats").hide().fadeIn(1000);
+}
+
 /**
  * renders bot response on to the chat screen
  * @param {Array} response json array containing different types of bot response
@@ -54,41 +92,7 @@ function setBotResponse(response) {
                 // check if the response contains "text"
                 if (Object.hasOwnProperty.call(response[i], "text")) {
                     if (response[i].text != null) {
-                        // convert the text to mardown format using showdown.js(https://github.com/showdownjs/showdown);
-                        let botResponse;
-                        let html = converter.makeHtml(response[i].text);
-                        html = html.replaceAll("<p>", "").replaceAll("</p>", "").replaceAll("<strong>", "<b>").replaceAll("</strong>", "</b>");
-                        html = html.replace(/(?:\r\n|\r|\n)/g, '<br>')
-                        console.log(html);
-                        // check for blockquotes
-                        if (html.includes("<blockquote>")) {
-                            html = html.replaceAll("<br>", "");
-                            botResponse = getBotResponse(html);
-                        }
-                        // check for image
-                        if (html.includes("<img")) {
-                            html = html.replaceAll("<img", '<img class="imgcard_mrkdwn" ');
-                            botResponse = getBotResponse(html);
-                        }
-                        // check for preformatted text
-                        if (html.includes("<pre") || html.includes("<code>")) {
-
-                            botResponse = getBotResponse(html);
-                        }
-                        // check for list text
-                        if (html.includes("<ul") || html.includes("<ol") || html.includes("<li") || html.includes('<h3')) {
-                            html = html.replaceAll("<br>", "");
-                            // botResponse = `<img class="botAvatar" src="./static/img/bot_avatar.png"/><span class="botMsg">${html}</span><div class="clearfix"></div>`;
-                            botResponse = getBotResponse(html);
-                        }
-                        else {
-                            // if no markdown formatting found, render the text as it is.
-                            if (!botResponse) {
-                                botResponse = `<p class="botMsg">${response[i].text}</p><div class="clearfix"></div>`;
-                            }
-                        }
-                        // append the bot response on to the chat screen
-                        $(botResponse).appendTo(".chats").hide().fadeIn(1000);
+                        processTextBotReponse(response[i].text)
                     }
                 }
 
@@ -123,6 +127,17 @@ function setBotResponse(response) {
                 // check if the response contains "custom" message
                 if (Object.hasOwnProperty.call(response[i], "custom")) {
                     const { payload } = response[i].custom;
+
+                    if (payload === "text") {
+                        const text = response[i].custom.data;
+                        const user = response[i].custom.event;
+                        if (!user || user === "bot") {
+                            processTextBotReponse(text);
+                        } else if (user === "user") {
+                            setUserResponse(text)
+                        }
+                    }
+
                     if (payload === "quickReplies") {
                         // check if the custom payload type is "quickReplies"
                         const quickRepliesData = response[i].custom.data;
@@ -204,6 +219,11 @@ function setBotResponse(response) {
                         const { data } = response[i].custom;
                         // pass the data variable to createCollapsible function
                         createCollapsible(data);
+                    }
+
+                    if (payload === "event") {
+                        const data = response[i].custom.data;
+                        window.parent.postMessage({type: '_event', data: data}, '*')
                     }
                 }
             }

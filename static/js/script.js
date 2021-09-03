@@ -114,9 +114,9 @@ function sendChatCommandFromParent(payload, text) {
 }
 
 function openWidget() {
-  window.parent.postMessage('_open', '*')
+  window.parent.postMessage({type: '_open'}, '*')
 }
 
 function closeWidget() {
-  window.parent.postMessage('_close', '*')
+  window.parent.postMessage({type: '_close'}, '*')
 }
