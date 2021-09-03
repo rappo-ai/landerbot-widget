@@ -27,7 +27,7 @@ const Rappo = {};
     const message = e.data;
     const messageType = message.type
     const messageData = message.data
-    const h = 590;
+    let h = 590;
     if (messageType === '_open') {
       document.getElementById(RappoWidgetId).className = RappoIframeClass + ' ' + RappoIframeOpenClass
       if (window.innerHeight < h) {
