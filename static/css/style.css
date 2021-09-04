@@ -92,7 +92,7 @@ body {
 
 .chats {
   /* display: none; */
-  height: 400px;
+  height: calc(100vh - 68px - 92px - 20px - 1px);
   padding: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
