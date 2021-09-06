@@ -252,7 +252,7 @@ function send(inputText, message, metadata) {
         url: rasa_server_url + "/webhook",
         type: "POST",
         contentType: "application/json",
-        data: JSON.stringify({ text: message, input_text: inputText, metadata: metadata, sender: RappoSenderId }),
+        data: JSON.stringify({ text: message, input_text: inputText, metadata: metadata, sender_id: RappoSenderId }),
         success(botResponse, status) {
             console.log("Response from Rasa: ", botResponse, "\nStatus: ", status);
 
@@ -442,7 +442,7 @@ $("#sendButton").on("click", (e) => {
     return false;
 });
 
-const evtSource = new EventSource(rasa_server_url + "/events?sender="+RappoSenderId, {withCredentials: false});
+const evtSource = new EventSource(rasa_server_url + "/events?sender_id="+RappoSenderId, {withCredentials: false});
 evtSource.onmessage = function(event) {
     setBotResponse(JSON.parse(event.data));
 }
