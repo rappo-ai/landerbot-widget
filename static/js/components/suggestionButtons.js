@@ -28,7 +28,7 @@ $(document).on("click", ".menu .menuChips", function () {
     const payload = this.getAttribute("data-payload");
     console.log("payload: ", this.getAttribute("data-payload"));
     setUserResponse(text);
-    send(text, payload);
+    send(payload, text);
 
     // delete the suggestions once user click on it.
     $(".suggestions").remove();

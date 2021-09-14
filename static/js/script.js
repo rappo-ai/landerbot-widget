@@ -46,9 +46,7 @@ window.addEventListener('load', () => {
   });
   // Toggle the chatbot screen
   $("#profile_div").click(() => {
-    $(".profile_div").toggle();
-    $(".widget").toggle();
-    openWidget()
+    showWidget();
   });
 
   // clear function to clear the chat contents of the widget.
@@ -61,10 +59,8 @@ window.addEventListener('load', () => {
 
   // close function to close the widget.
   $("#close").click(() => {
-    $(".profile_div").toggle();
-    $(".widget").toggle();
+    hideWidget();
     scrollToBottomOfResults();
-    closeWidget()
   });
 });
 
@@ -78,45 +74,72 @@ window.addEventListener('load', () => {
 document.addEventListener('DOMContentLoaded', function () {
 
   window.addEventListener('message', function (e) {
-    if (e.data === '_open') {
-      if (!$("#profile_div").is(':hidden')) {
-        $(".profile_div").toggle();
-        $(".widget").toggle();
-        openWidget()
-      }
-    } else if(e.data === '_close') {
-      if (!$("#profile_div").is(':visible')) {
-        $(".profile_div").toggle();
-        $(".widget").toggle();
-        closeWidget()
-      }
-    } else if (e.data) {
-      if (!$("#profile_div").is(':hidden')) {
-        $(".profile_div").toggle();
-        $(".widget").toggle();
-        openWidget()
-      }
-      const data = JSON.parse(e.data);
-      // console.log('iframe message', data)
-      sendChatCommandFromParent(data.payload, data.text )
+    const message = e.data;
+    const messageType = message.type
+    const messageData = message.data
+    switch (messageType)
+    {
+      case '_open':
+        {
+          if (isWidgetHidden()) {
+            showWidget();
+          }
+        }
+        break;
+      case '_close':
+        {
+          if (!isWidgetHidden()) {
+            hideWidget();
+          }
+        }
+        break;
+      case '_send':
+        {
+          const data = messageData;
+          if (isWidgetHidden() && data.text) {
+            showWidget();
+          }
+          sendChatCommandFromParent(data.payload, data.text, data.metadata)
+        }
+        break;
     }
   });
+  window.parent.postMessage({type: '_init'}, '*');
+  hideWidget();
 });
 
-function sendChatCommandFromParent(payload, text) {
+function sendChatCommandFromParent(payload, text, metadata, total_wait_ms = 0) {
   if (!payload) {
     return
   }
-  setTimeout(() => {
-    setUserResponse(text);
-    send(text, payload);
-  }, 0)
+  try {
+    if (text) {
+      setUserResponse(text);
+    }
+    send(payload, text, metadata);
+  } catch (error) {
+    const MAX_WAIT_MS = 1000
+    const WAIT_MS = 50
+    if (total_wait_ms < MAX_WAIT_MS) {
+      setTimeout(sendChatCommandFromParent, WAIT_MS, payload, text, metadata, total_wait_ms + WAIT_MS)
+    }
+  } 
 }
 
-function openWidget() {
-  window.parent.postMessage({type: '_open'}, '*')
+function isWidgetHidden() {
+  return !$("#profile_div").is(':hidden');
 }
 
-function closeWidget() {
-  window.parent.postMessage({type: '_close'}, '*')
+function showWidget() {
+  sendChatCommandFromParent("/livechat_visible", "", {visible: true});
+  $(".profile_div").hide();
+  $(".widget").show();
+  window.parent.postMessage({type: '_on_open'}, '*')
+}
+
+function hideWidget() {
+  sendChatCommandFromParent("/livechat_visible", "", {visible: false});
+  $(".profile_div").show();
+  $(".widget").hide();
+  window.parent.postMessage({type: '_on_close'}, '*')
 }

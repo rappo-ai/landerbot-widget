@@ -23,7 +23,7 @@ function renderDropDwon(drop_down_data) {
 
         setUserResponse(label);
         // eslint-disable-next-line no-use-before-define
-        send(label, value);
+        send(value, label);
         $(".dropDownMsg").remove();
     });
 }

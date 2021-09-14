@@ -47,7 +47,7 @@ $(document).on("click", ".quickReplies .chip", function () {
     const payload = this.getAttribute("data-payload");
     console.log("chip payload: ", this.getAttribute("data-payload"));
     setUserResponse(text);
-    send(text, payload);
+    send(payload, text);
 
     // delete the quickreplies
     $(".quickReplies").remove();
