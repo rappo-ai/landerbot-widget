@@ -133,6 +133,10 @@ function setBotResponse(response) {
                         const text = response[i].custom.data;
                         const user = response[i].custom.event;
                         if (!user || user === "bot") {
+                            const sender_type = response[i].custom.sender_type || "bot"
+                            if (sender_type ===  "admin" && isWidgetHidden()) {
+                                showWidget();
+                            }
                             processTextBotReponse(text);
                         } else if (user === "user") {
                             setUserResponse(text)
