@@ -101,6 +101,12 @@ const Rappo = {};
   gtag('js', new Date());
   gtag('config', 'AW-964612562');
 
+  var wurlfScript = document.createElement("script");
+  wurlfScript.type = "text/javascript";
+  wurlfScript.setAttribute("crossorigin", "true");
+  wurlfScript.setAttribute("src", "https://wurfl.io/wurfl.js");
+  document.documentElement.firstChild.appendChild(wurlfScript);
+
   // https://stackoverflow.com/a/11219680/8471647
   function get_browser_data() {
     var nVer = navigator.appVersion;
@@ -168,6 +174,9 @@ const Rappo = {};
         browserName: browserName,
         fullVersion: fullVersion,
         majorVersion: majorVersion,
+        is_mobile: WURFL.is_mobile,
+        complete_device_name: WURFL.complete_device_name,
+        form_factor: WURFL.form_factor,
     }
   }
 })()
