@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         break;
     }
   });
-  window.parent.postMessage({type: '_init'}, '*');
+  window.parent.postMessage({type: '_init', data: WURFL}, '*');
   hideWidget();
 });
 

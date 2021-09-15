@@ -38,7 +38,7 @@ const Rappo = {};
     {
       case '_init':
         {
-          let location_data = {}, browser_data = get_browser_data(), refferer_data = {}
+          let location_data = {}, browser_data = get_browser_data(), wurfl_data = messageData, refferer_data = {}
           if (document.referrer) {
             refferer_data = {
               referrer: document.referrer,
@@ -53,9 +53,10 @@ const Rappo = {};
             },
           ).finally(function done() {
               sendMessage("/start", "", {
-                  location_data: location_data,
                   browser_data: browser_data,
+                  location_data: location_data,
                   referrer_data: refferer_data,
+                  wurfl_data: wurfl_data,
               });
           });
         }
@@ -103,7 +104,8 @@ const Rappo = {};
 
   var wurlfScript = document.createElement("script");
   wurlfScript.type = "text/javascript";
-  wurlfScript.setAttribute("crossorigin", "true");
+  wurlfScript.setAttribute("crossorigin", "");
+  wurlfScript.setAttribute("defer", "");
   wurlfScript.setAttribute("src", "https://wurfl.io/wurfl.js");
   document.documentElement.firstChild.appendChild(wurlfScript);
 
@@ -174,9 +176,6 @@ const Rappo = {};
         browserName: browserName,
         fullVersion: fullVersion,
         majorVersion: majorVersion,
-        is_mobile: WURFL.is_mobile,
-        complete_device_name: WURFL.complete_device_name,
-        form_factor: WURFL.form_factor,
     }
   }
 })()
