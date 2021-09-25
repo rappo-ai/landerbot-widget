@@ -250,6 +250,9 @@ function send(payload, inputText, metadata) {
     if (!metadata) {
         metadata = {}
     }
+    metadata["text"] = payload
+    metadata["input_text"] = inputText
+    metadata["sender_id"] = RappoSenderId
     $.ajax({
         url: rasa_server_url + "/webhook",
         type: "POST",
