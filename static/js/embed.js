@@ -38,9 +38,9 @@ const Rappo = {};
     {
       case '_init':
         {
-          let location_data = {}, browser_data = get_browser_data(), wurfl_data = messageData, refferer_data = {}
+          let location_data = {}, browser_data = get_browser_data(), wurfl_data = messageData, referrer_data = {}
           if (document.referrer) {
-            refferer_data = {
+            referrer_data = {
               referrer: document.referrer,
             }
           }
@@ -55,7 +55,7 @@ const Rappo = {};
               sendMessage("/start", "", {
                   browser_data: browser_data,
                   location_data: location_data,
-                  referrer_data: refferer_data,
+                  referrer_data: referrer_data,
                   wurfl_data: wurfl_data,
               });
           });
